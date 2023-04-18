@@ -14,7 +14,7 @@ export default function App() {
   useEffect(() => {
     AsyncStorage.getItem("alreadyLaunched").then((value) => {
       if (value == null) {
-        AsyncStorage.setItem("alreadyLaunched", "true"); // No need to wait for `setItem` to finish, although you might want to handle errors
+        AsyncStorage.setItem("alreadyLaunched", "true");
         setIsFirstLaunch(true);
       } else {
         setIsFirstLaunch(false);
@@ -34,6 +34,14 @@ export default function App() {
       </NavigationContainer>
     );
   } else {
-    return <LoginScreen />;
+    return (
+      <NavigationContainer>
+        <AppStack.Navigator headerMode="none">
+          <AppStack.Screen name="Onbording" component={OnbordingScreen} />
+          <AppStack.Screen name="Login" component={LoginScreen} />
+        </AppStack.Navigator>
+        {/* <LoginScreen /> */}
+      </NavigationContainer>
+    );
   }
 }
